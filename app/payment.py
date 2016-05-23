@@ -10,6 +10,6 @@ class Payment(object):
     def show_paid_amount(self):
         return self._paid_amount
 
-    def calculate_change(self, amount):
+    def calculate_change(self):
         total = self._order.total()
-        return round(amount - total, 2)
+        return round(self._paid_amount - total, 2)

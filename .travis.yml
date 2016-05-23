@@ -1,1 +1,1 @@
-script: pip3 install green && green
+script: pip3 install green && green  

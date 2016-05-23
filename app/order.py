@@ -6,8 +6,8 @@ class Order(object):
         self._prices = []
         self._DEFAULT_TAX_RATE = 0.0864
         self._DEFAULT_DISCOUNT_THRESHOLD = 50
-        self._DEFAULT_DISCOUNT = 0.05
-        self._DEFAULT_MUFFIN_DISCOUNT = 0.1
+        self.DEFAULT_DISCOUNT = 0.05
+        self.DEFAULT_MUFFIN_DISCOUNT = 0.1
 
     def show_items(self):
         return self._items
@@ -24,8 +24,8 @@ class Order(object):
 
     def total(self):
         total = self._sum_items()
-        if self._is_large_purchase(total):
-            return total * (1 - self._DEFAULT_DISCOUNT)
+        if self._is_large_purchase():
+            return total * (1 - self.DEFAULT_DISCOUNT)
         else:
             return total
 
@@ -35,7 +35,15 @@ class Order(object):
 
     def _calcaulate_each_item(self):
         for item, quantity in self._items.items():
-            self._prices.append(self._menu[item] * quantity)
+            price = self._menu[item] * quantity
+            if self._has_muffin(item):
+                discounted_price = price * (1 - self.DEFAULT_MUFFIN_DISCOUNT)
+                self._prices.append(round(discounted_price, 2))
+            else:
+                self._prices.append(price)
 
-    def _is_large_purchase(self, amount):
-        return amount > self._DEFAULT_DISCOUNT_THRESHOLD
+    def _is_large_purchase(self):
+        return self._sum_items() > self._DEFAULT_DISCOUNT_THRESHOLD
+
+    def _has_muffin(self, item):
+        return "muffin" in item.lower()

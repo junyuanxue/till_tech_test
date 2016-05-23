@@ -15,6 +15,7 @@ class ReceiptTestCase(unittest.TestCase):
         self.order.show_items.return_value = { "Latte": 10, "Blueberry Muffin": 1 }
         self.order.is_large_purchase.return_value = True
         self.order.DEFAULT_DISCOUNT = 0.05
+        self.order.DEFAULT_MUFFIN_DISCOUNT = 0.1
         self.order.calculate_tax.return_value = 4.38
         self.order.show_sum.return_value = 50.7
         self.order.total.return_value = 48.17

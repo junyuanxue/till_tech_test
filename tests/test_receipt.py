@@ -6,7 +6,7 @@ from app.receipt import Receipt
 class ReceiptTestCase(unittest.TestCase):
 
     def setUp(self):
-        menu = { "Latte": 4.75, "Capuccino": 3.85 }
+        menu = { "Latte": 4.75, "Capuccino": 3.85, "Blueberry Muffin": 4.05 }
         self.order = MagicMock()
         self.payment = MagicMock()
         self.receipt = Receipt(self.order, menu, self.payment)

@@ -24,10 +24,16 @@ class Order(object):
 
     def total(self):
         total = self._sum_items()
-        if self._is_large_purchase():
+        if self.is_large_purchase():
             return total * (1 - self.DEFAULT_DISCOUNT)
         else:
             return total
+
+    def show_sum(self):
+        return self._sum_items()
+
+    def is_large_purchase(self):
+        return self._sum_items() > self._DEFAULT_DISCOUNT_THRESHOLD
 
     def _sum_items(self):
         self._calcaulate_each_item()
@@ -40,9 +46,6 @@ class Order(object):
                 self._calculate_muffin_discount(price)
             else:
                 self._prices.append(price)
-
-    def _is_large_purchase(self):
-        return self._sum_items() > self._DEFAULT_DISCOUNT_THRESHOLD
 
     def _has_muffin(self, item):
         return "muffin" in item.lower()

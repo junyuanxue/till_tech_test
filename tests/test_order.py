@@ -15,6 +15,9 @@ class OrderTestCase(unittest.TestCase):
     def test_calculate_tax(self):
         self.assertEqual(self.order.calculate_tax(), 1.08)
 
+    def test_show_sum(self):
+        self.assertEqual(self.order.show_sum(), 12.45)
+
     def test_total(self):
         self.assertEqual(self.order.total(), 12.45)
 
@@ -25,3 +28,7 @@ class OrderTestCase(unittest.TestCase):
     def test_calculate_muffin_discount(self):
         self.order.add_item("Blueberry Muffin")
         self.assertEqual(self.order.total(), 16.1)
+
+    def test_is_large_purchase(self):
+        self.order.add_item("Latte", 9)
+        self.assertEqual(self.order.is_large_purchase(), True)

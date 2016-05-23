@@ -13,5 +13,5 @@ class PaymentTestCase(unittest.TestCase):
         self.assertEqual(self.payment.show_paid_amount(), 15)
 
     def test_calculate_change(self):
-        self.order.total = MagicMock(return_value = 12.45)
+        self.order.total.return_value = 12.45
         self.assertEqual(self.payment.calculate_change(), 2.55)

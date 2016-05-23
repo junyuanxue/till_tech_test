@@ -37,8 +37,7 @@ class Order(object):
         for item, quantity in self._items.items():
             price = self._menu[item] * quantity
             if self._has_muffin(item):
-                discounted_price = price * (1 - self.DEFAULT_MUFFIN_DISCOUNT)
-                self._prices.append(round(discounted_price, 2))
+                self._calculate_muffin_discount(price)
             else:
                 self._prices.append(price)
 
@@ -47,3 +46,7 @@ class Order(object):
 
     def _has_muffin(self, item):
         return "muffin" in item.lower()
+
+    def _calculate_muffin_discount(self, price):
+        discounted_price = price * (1 - self.DEFAULT_MUFFIN_DISCOUNT)
+        self._prices.append(round(discounted_price, 2))

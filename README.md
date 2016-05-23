@@ -4,13 +4,22 @@
 
 This is my solution to the Till tech test, requirements specified below.
 
-I also used this tech test to learn Python and how to test-drive with Python's `unittest` testing framework.
+I also used this tech test to learn Python and how to test-drive using Python's `unittest` testing framework.
 
-# Features :star2:
 
 # Testing :white_check_mark:
 
+The code was test-driven with `unittest`. To run the tests, type the following in terminal:
+
+```
+$ pip3 install green
+$ green
+```
+
 # Tools :wrench:
+
+* Python
+* unittest
 
 # Requirements :page_with_curl:
 

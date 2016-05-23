@@ -16,4 +16,4 @@ class OrderTestCase(unittest.TestCase):
         self.assertEqual(self.order.calculate_tax(), 1.08)
 
     def test_total(self):
-        self.assertEqual(self.order.total(), 13.53)
+        self.assertEqual(self.order.total(), 12.45)

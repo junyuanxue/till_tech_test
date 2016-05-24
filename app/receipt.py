@@ -6,24 +6,30 @@ class Receipt(object):
         self._order = order
         self._menu = menu
         self._payment = payment
+        self._body = {}
 
     def output_as_json(self):
-        receipt = {}
+        self._print_items()
+        if self._order.is_large_purchase():
+            self._print_discount()
+        self._body["Tax"] = self._format_currency(self._order.calculate_tax())
+        self._body["Total"] = self._format_currency(self._order.total())
+        self._body["Cash"] = self._format_currency(self._payment.show_paid_amount())
+        self._body["Change"] = self._format_currency(self._payment.calculate_change())
+        return json.dumps(self._body)
+
+    def _print_items(self):
         for item in self._order.show_items():
             if self._has_muffin(item):
                 discount = self._order.DEFAULT_MUFFIN_DISCOUNT
-                receipt[item] = self._format_muffin_discount(discount, item)
+                self._body[item] = self._format_muffin_discount(discount, item)
             else:
-                receipt[item] = self._format_line(item)
-        if self._order.is_large_purchase():
-            discount = self._order.DEFAULT_DISCOUNT
-            items_sum = self._order.show_sum()
-            receipt["Disc"] = self._format_order_discount(discount, items_sum)
-        receipt["Tax"] = self._format_currency(self._order.calculate_tax())
-        receipt["Total"] = self._format_currency(self._order.total())
-        receipt["Cash"] = self._format_currency(self._payment.show_paid_amount())
-        receipt["Change"] = self._format_currency(self._payment.calculate_change())
-        return json.dumps(receipt)
+                self._body[item] = self._format_line(item)
+
+    def _print_discount(self):
+        discount = self._order.DEFAULT_DISCOUNT
+        items_sum = self._order.show_sum()
+        self._body["Disc"] = self._format_order_discount(discount, items_sum)
 
     def _format_line(self, item):
         quantity = self._order.show_items()[item]
